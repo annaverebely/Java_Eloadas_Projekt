@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title th:text="${title} + ' – Beadandó'">Beadandó</title>
+	<!-- IDE jön majd a kiválasztott reszponzív téma CSS-e -->
+	<link rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body>
+<header th:fragment="menu">
+	<nav class="menu">
+		<a th:href="@{/}" class="brand">Beadandó</a>
+		<input type="checkbox" id="toggle">
+		<label for="toggle" class="burger">☰</label>
+		<ul>
+			<li><a th:href="@{/}">Főoldal</a></li>
+			<li><a th:href="@{/soap}">SOAP</a></li>
+			<li><a th:href="@{/account}">Forex-account</a></li>
+			<li><a th:href="@{/actual_prices}">Forex-AktÁr</a></li>
+			<li><a th:href="@{/hist_prices}">Forex-HistÁr</a></li>
+			<li><a th:href="@{/open_position}">Forex-Nyit</a></li>
+			<li><a th:href="@{/positions}">Forex-Poz</a></li>
+			<li><a th:href="@{/close_position}">Forex-Zár</a></li>
+		</ul>
+	</nav>
+</header>
+<footer th:fragment="footer" class="footer">
+	<!-- Írjátok be a valós neveket és Neptun kódokat -->
+	Készítők: NÉV1 (NEPTUN1), NÉV2 (NEPTUN2)
+</footer>
+</body>
+</html>

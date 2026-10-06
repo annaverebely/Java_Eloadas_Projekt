@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: menu}"></header>
+<main class="container">
+	<h1>Devizakereskedő alkalmazás</h1>
+	<p>Alkalmazás bemutatása: mit tud, milyen technológiákkal készült
+	(Java 25, Spring Boot, Thymeleaf, MNB SOAP, Oanda API, Chart.js).</p>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

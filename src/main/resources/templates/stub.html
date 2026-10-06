@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: menu}"></header>
+<main class="container">
+	<h1 th:text="${title}">Cím</h1>
+	<p>Ez az oldal még nincs elkészítve.</p>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
