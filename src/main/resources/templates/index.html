@@ -3,8 +3,15 @@
 <head th:replace="~{fragments/layout :: head(${title})}"></head>
 <body>
 <header th:replace="~{fragments/layout :: menu}"></header>
-<main class="container">
-	<h1>Devizakereskedő alkalmazás</h1>
+
+<section class="hero">
+	<div class="container">
+		<h1>Devizakereskedés</h1>
+		<p>MNB árfolyamok és Oanda Forex kereskedés egy helyen.</p>
+	</div>
+</section>
+
+	<h1>Devizaárfolyamok kezelése</h1>
 	<p>Alkalmazás bemutatása: mit tud, milyen technológiákkal készült
 	(Java 25, Spring Boot, Thymeleaf, MNB SOAP, Oanda API, Chart.js).</p>
 </main>
