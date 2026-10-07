@@ -6,6 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import soapclient.MNBArfolyamServiceSoapImpl;
 
 @Controller
 public class SoapController {
@@ -25,5 +28,21 @@ public class SoapController {
         model.addAttribute("form", form);
         model.addAttribute("currencies", CURRENCIES);
         return "soap";   // a templates/soap.html sablon
+    }
+
+    @PostMapping("/soap")
+    public String query(@ModelAttribute("form") SoapForm form, Model model) {
+        model.addAttribute("title", "SOAP – MNB árfolyamok");
+        model.addAttribute("currencies", CURRENCIES);
+
+        try {
+            var service = new MNBArfolyamServiceSoapImpl().getCustomBindingMNBArfolyamServiceSoap();
+            String xml = service.getExchangeRates(
+                    form.getStartDate(), form.getEndDate(), form.getCurrency());
+            model.addAttribute("xml", xml);
+        } catch (Exception e) {
+            model.addAttribute("error", "Az MNB adatok lekérdezése sikertelen: " + e.getMessage());
+        }
+        return "soap";
     }
 }

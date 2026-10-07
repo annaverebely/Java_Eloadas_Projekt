@@ -20,6 +20,12 @@
         </label>
         <button type="submit">Lekérdezés</button>
     </form>
+
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <!-- Ideiglenes -->
+    <pre th:if="${xml}" th:text="${xml}"></pre>
+
 </main>
 <footer th:replace="~{fragments/layout :: footer}"></footer>
 </body>
