@@ -48,3 +48,7 @@ td,th{border:1px solid #ccc;padding:.4rem .6rem}
  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin: 0 0 1rem; }
  .hero p  { max-width: 36rem; opacity: .85; }
 
+.query-form{display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;margin:1rem 0}
+.query-form label{display:flex;flex-direction:column;font-size:.9rem;gap:.25rem}
+.query-form select,.query-form input,.query-form button{padding:.5rem;font-size:1rem}
+.query-form button{background:#1f2937;color:#fff;border:0;border-radius:4px;cursor:pointer}

@@ -18,9 +18,6 @@ public class PageController {
 		return "index";
 	}
 
-	@GetMapping("/soap")
-	public String soap(Model m) { return stub(m, "SOAP – MNB árfolyamok"); }
-
 	@GetMapping("/account")
 	public String account(Model m) { return stub(m, "Forex – Account"); }
 

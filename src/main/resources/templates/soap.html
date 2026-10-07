@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: menu}"></header>
+<main class="container">
+    <h1 th:text="${title}">Cím</h1>
+
+    <form class="query-form" th:action="@{/soap}" th:object="${form}" method="post">
+        <label>Deviza
+            <select th:field="*{currency}">
+                <option th:each="c : ${currencies}" th:value="${c}" th:text="${c}"></option>
+            </select>
+        </label>
+        <label>Kezdő dátum
+            <input type="date" th:field="*{startDate}">
+        </label>
+        <label>Záró dátum
+            <input type="date" th:field="*{endDate}">
+        </label>
+        <button type="submit">Lekérdezés</button>
+    </form>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
