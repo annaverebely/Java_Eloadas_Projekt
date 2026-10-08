@@ -39,7 +39,12 @@ public class SoapController {
             var service = new MNBArfolyamServiceSoapImpl().getCustomBindingMNBArfolyamServiceSoap();
             String xml = service.getExchangeRates(
                     form.getStartDate(), form.getEndDate(), form.getCurrency());
-            model.addAttribute("xml", xml);
+            List<Arfolyam> points = ArfolyamFeldolgozo.parse(xml);
+            if (points.isEmpty()) {
+                model.addAttribute("error", "Nincs árfolyam adat a megadott időszakra.");
+            } else {
+                model.addAttribute("points", points);
+            }
         } catch (Exception e) {
             model.addAttribute("error", "Az MNB adatok lekérdezése sikertelen: " + e.getMessage());
         }

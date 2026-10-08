@@ -23,8 +23,18 @@
 
     <p class="error" th:if="${error}" th:text="${error}"></p>
 
-    <!-- Ideiglenes -->
-    <pre th:if="${xml}" th:text="${xml}"></pre>
+    <table class="rates" th:if="${points}">
+        <thead>
+        <tr><th>Dátum</th><th>Egység</th><th>Árfolyam (Ft)</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${points}">
+            <td th:text="${p.datum}"></td>
+            <td th:text="${p.egyseg}"></td>
+            <td th:text="${#numbers.formatDecimal(p.ertek, 1, 'WHITESPACE', 2, 'COMMA')}"></td>
+        </tr>
+        </tbody>
+    </table>
 
 </main>
 <footer th:replace="~{fragments/layout :: footer}"></footer>

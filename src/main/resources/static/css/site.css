@@ -54,3 +54,7 @@ td,th{border:1px solid #ccc;padding:.4rem .6rem}
 .query-form button{background:#1f2937;color:#fff;border:0;border-radius:4px;cursor:pointer}
 
 .error{color: #6f0808;font-weight:bold}
+
+.rates{border-collapse:collapse;margin:1rem 0;width:100%;max-width:32rem}
+.rates th,.rates td{border-bottom:1px solid #e5e7eb;padding:.4rem .6rem;text-align:left}
+.rates th:last-child,.rates td:last-child{text-align:right}
