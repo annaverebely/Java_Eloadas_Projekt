@@ -18,8 +18,7 @@ public class PageController {
 		return "index";
 	}
 
-	@GetMapping("/account")
-	public String account(Model m) { return stub(m, "Forex – Account"); }
+
 
 	@GetMapping("/actual_prices")
 	public String actual(Model m) { return stub(m, "Forex – Aktuális ár"); }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: menu}"></header>
+<main class="container">
+    <h1 th:text="${title}">Cím</h1>
+
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <table class="rates" th:if="${summary}">
+        <tbody>
+        <tr><th>Számla azonosító</th>  <td th:text="${summary.id}"></td></tr>
+        <tr><th>Számla neve</th>       <td th:text="${summary.alias}"></td></tr>
+        <tr><th>Deviza</th>            <td th:text="${summary.currency}"></td></tr>
+        <tr><th>Egyenleg</th>          <td th:text="${summary.balance}"></td></tr>
+        <tr><th>Nettó eszközérték (NAV)</th> <td th:text="${summary.NAV}"></td></tr>
+        <tr><th>Nem realizált nyereség/veszteség</th> <td th:text="${summary.unrealizedPL}"></td></tr>
+        <tr><th>Realizált nyereség/veszteség</th>     <td th:text="${summary.pl}"></td></tr>
+        <tr><th>Felhasznált fedezet</th> <td th:text="${summary.marginUsed}"></td></tr>
+        <tr><th>Szabad fedezet</th>      <td th:text="${summary.marginAvailable}"></td></tr>
+        <tr><th>Nyitott tradek száma</th>    <td th:text="${summary.openTradeCount}"></td></tr>
+        <tr><th>Nyitott pozíciók száma</th>  <td th:text="${summary.openPositionCount}"></td></tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
