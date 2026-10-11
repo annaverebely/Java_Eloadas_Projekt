@@ -18,9 +18,6 @@ public class PageController {
 		return "index";
 	}
 
-	@GetMapping("/hist_prices")
-	public String hist(Model m) { return stub(m, "Forex – Historikus ár"); }
-
 	@GetMapping("/open_position")
 	public String open(Model m) { return stub(m, "Forex – Pozíció nyitás"); }
 
