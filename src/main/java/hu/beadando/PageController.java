@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * Főoldal + ideiglenes (stub) oldalak a menühöz.
- * Ahogy egy menüpont elkészül, vegyétek ki innen az útvonalát, és
- * csináljatok neki saját controllert + sablont (pl. SoapController).
+ * Ahogy egy menüpont elkészül, vegyük ki innen az útvonalát, és
+ * csináljunk neki saját controllert + sablont (pl. SoapController).
  */
 @Controller
 public class PageController {
@@ -17,11 +17,6 @@ public class PageController {
 		model.addAttribute("title", "Főoldal");
 		return "index";
 	}
-
-
-
-	@GetMapping("/actual_prices")
-	public String actual(Model m) { return stub(m, "Forex – Aktuális ár"); }
 
 	@GetMapping("/hist_prices")
 	public String hist(Model m) { return stub(m, "Forex – Historikus ár"); }
