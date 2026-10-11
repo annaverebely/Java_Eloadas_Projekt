@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: menu}"></header>
+<main class="container">
+    <h1 th:text="${title}">Cím</h1>
+
+    <form class="query-form" th:action="@{/actual_prices}" th:object="${form}" method="post">
+        <label>Instrumentum
+            <select th:field="*{instrument}">
+                <option th:each="i : ${instruments}" th:value="${i}" th:text="${i}"></option>
+            </select>
+        </label>
+        <button type="submit">Lekérdezés</button>
+    </form>
+
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <table class="rates" style="max-width:none" th:if="${prices}">
+        <thead>
+        <tr><th>Instrumentum</th><th>Időpont (UTC)</th><th>Bid</th><th>Ask</th><th>Kereskedhető</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${prices}">
+            <td th:text="${p.instrument}"></td>
+            <td th:text="${#strings.replace(#strings.substring(p.time.toString(), 0, 19), 'T', ' ')}"></td>
+            <td th:text="${p.closeoutBid}"></td>
+            <td th:text="${p.closeoutAsk}"></td>
+            <td th:text="${p.tradeable} ? 'igen' : 'nem (zárt piac)'"></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
