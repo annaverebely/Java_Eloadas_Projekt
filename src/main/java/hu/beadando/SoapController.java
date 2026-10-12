@@ -2,6 +2,7 @@ package hu.beadando;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,8 +43,19 @@ public class SoapController {
             List<Arfolyam> points = ArfolyamFeldolgozo.parse(xml);
             if (points.isEmpty()) {
                 model.addAttribute("error", "Nincs árfolyam adat a megadott időszakra.");
-            } else {
+            }
+            else
+                {
+                List<String> labels = new ArrayList<>();
+                List<Double> values = new ArrayList<>();
+                for (Arfolyam a : points) {
+                    labels.add(a.getDatum());
+                    values.add(a.getErtek());
+                }
+
                 model.addAttribute("points", points);
+                model.addAttribute("labels", labels);
+                model.addAttribute("values", values);
             }
         } catch (Exception e) {
             model.addAttribute("error", "Az MNB adatok lekérdezése sikertelen: " + e.getMessage());

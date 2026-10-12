@@ -1,20 +1,83 @@
 <!DOCTYPE html>
 <html lang="hu" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head(${title})}"></head>
-<body>
-<header th:replace="~{fragments/layout :: menu}"></header>
+<body class="homepage is-preload">
+<div id="page-wrapper">
 
-<section class="hero">
-	<div class="container">
-		<h1>Devizakereskedés</h1>
-		<p>MNB árfolyamok és Oanda Forex kereskedés egy helyen.</p>
-	</div>
-</section>
+	<!-- Fejléc és menü -->
+	<section th:replace="~{fragments/layout :: menu}"></section>
 
-	<h1>Devizaárfolyamok kezelése</h1>
-	<p>Alkalmazás bemutatása: mit tud, milyen technológiákkal készült
-	(Java 25, Spring Boot, Thymeleaf, MNB SOAP, Oanda API, Chart.js).</p>
-</main>
-<footer th:replace="~{fragments/layout :: footer}"></footer>
+	<!-- Bemutatkozás -->
+	<section id="intro" class="wrapper style1">
+		<div class="title">Bemutatkozás</div>
+		<div class="container">
+			<p class="style1">MNB árfolyamok és Oanda Forex kereskedés</p>
+			<p class="style1">Az alkalmazás <strong>Java 25</strong> és <strong>Spring Boot</strong> alapokon
+				készült, <strong>Thymeleaf</strong> sablonokkal. Az MNB árfolyamait <strong>SOAP</strong>
+				webszolgáltatáson keresztül kéri le és <strong>Chart.js</strong> grafikonon mutatja,
+				a kereskedést pedig az <strong>Oanda</strong> Forex API-n keresztül végzi.</p>
+		</div>
+	</section>
+
+	<!-- Funkciók -->
+	<section id="main" class="wrapper style2">
+		<div class="title">Funkciók</div>
+		<div class="container">
+			<section id="features">
+				<header class="style1">
+					<h2>Mit tud az alkalmazás?</h2>
+					<p>Árfolyamok lekérdezése és Forex kereskedés a menüből elérhető oldalakon</p>
+				</header>
+				<div class="feature-list">
+					<div class="row">
+						<div class="col-6 col-12-medium">
+							<section>
+								<h3 class="icon solid fa-chart-line">SOAP – MNB árfolyamok</h3>
+								<p>Devizát és időszakot választva az MNB napi árfolyamait táblázatban és grafikonon láthatod.</p>
+							</section>
+						</div>
+						<div class="col-6 col-12-medium">
+							<section>
+								<h3 class="icon solid fa-wallet">Forex-account</h3>
+								<p>Az Oanda számla adatai: egyenleg és a számla főbb jellemzői.</p>
+							</section>
+						</div>
+						<div class="col-6 col-12-medium">
+							<section>
+								<h3 class="icon solid fa-bolt">Forex-AktÁr</h3>
+								<p>Egy deviza-pár aktuális ára az Oanda szerint.</p>
+							</section>
+						</div>
+						<div class="col-6 col-12-medium">
+							<section>
+								<h3 class="icon solid fa-clock">Forex-HistÁr</h3>
+								<p>Egy deviza-pár történelmi árai a választott időszakra.</p>
+							</section>
+						</div>
+						<div class="col-6 col-12-medium">
+							<section>
+								<h3 class="icon solid fa-folder-open">Forex-Nyit és Forex-Poz</h3>
+								<p>Pozíció nyitása, valamint a nyitott pozíciók listája.</p>
+							</section>
+						</div>
+						<div class="col-6 col-12-medium">
+							<section>
+								<h3 class="icon solid fa-check">Forex-Zár</h3>
+								<p>Nyitott pozíció lezárása.</p>
+							</section>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</section>
+
+	<!-- Lábléc -->
+	<section th:replace="~{fragments/layout :: footer}"></section>
+
+</div>
+
+<!-- A téma szkriptjei -->
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
 </body>
 </html>

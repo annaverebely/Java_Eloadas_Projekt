@@ -2,17 +2,22 @@
 <html lang="hu" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head(title)">
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title th:text="${title} + ' – Beadandó'">Előadás Beadandó</title>
-	<!-- ide jön a kiválasztott reszponzív téma CSS-e -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title th:text="${title} + ' – Beadandó'">Beadandó</title>
+	<!-- Téma: Escape Velocity by HTML5 UP (html5up.net), CC BY 3.0 -->
+	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
+	<!-- Saját kiegészítések -->
 	<link rel="stylesheet" th:href="@{/css/site.css}">
 </head>
 <body>
-<header th:fragment="menu">
-	<nav class="menu">
-		<a th:href="@{/}" class="brand">Beadandó</a>
-		<input type="checkbox" id="toggle">
-		<label for="toggle" class="burger">☰</label>
+
+<!-- Fejléc és menü -->
+<section th:fragment="menu" id="header" class="wrapper">
+	<div id="logo">
+		<h1><a th:href="@{/}">Devizakereskedő</a></h1>
+		<p>Java alkalmazások – beadandó</p>
+	</div>
+	<nav id="nav">
 		<ul>
 			<li><a th:href="@{/}">Főoldal</a></li>
 			<li><a th:href="@{/soap}">SOAP</a></li>
@@ -24,10 +29,32 @@
 			<li><a th:href="@{/close_position}">Forex-Zár</a></li>
 		</ul>
 	</nav>
-</header>
-<footer th:fragment="footer" class="footer">
-	<!-- Írjátok be a valós neveket és Neptun kódokat -->
-	Készítők: Molnár Emese (CN642U), Verebély Annamária (JA67IY)
-</footer>
+</section>
+
+<!-- Lábléc -->
+<section th:fragment="footer" id="footer" class="wrapper">
+	<div class="container">
+		<p class="authors">
+			Készítők: <strong>Molnár Emese</strong> (CN642U) &nbsp;·&nbsp;
+			<strong>Verebély Annamária</strong> (JA67IY)
+		</p>
+		<div id="copyright">
+			<ul>
+				<li>Design: <a href="https://html5up.net">HTML5 UP</a> – Escape Velocity (CC BY 3.0)</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<!-- A téma szkriptjei (mobil menü, legördülők) -->
+<th:block th:fragment="scripts">
+	<script th:src="@{/assets/js/jquery.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.dropotron.min.js}"></script>
+	<script th:src="@{/assets/js/browser.min.js}"></script>
+	<script th:src="@{/assets/js/breakpoints.min.js}"></script>
+	<script th:src="@{/assets/js/util.js}"></script>
+	<script th:src="@{/assets/js/main.js}"></script>
+</th:block>
+
 </body>
 </html>

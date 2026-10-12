@@ -1,42 +1,91 @@
 <!DOCTYPE html>
 <html lang="hu" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head(${title})}"></head>
-<body>
-<header th:replace="~{fragments/layout :: menu}"></header>
-<main class="container">
-    <h1 th:text="${title}">Cím</h1>
+<body class="no-sidebar is-preload">
+<div id="page-wrapper">
 
-    <form class="query-form" th:action="@{/soap}" th:object="${form}" method="post">
-        <label>Deviza
-            <select th:field="*{currency}">
-                <option th:each="c : ${currencies}" th:value="${c}" th:text="${c}"></option>
-            </select>
-        </label>
-        <label>Kezdő dátum
-            <input type="date" th:field="*{startDate}">
-        </label>
-        <label>Záró dátum
-            <input type="date" th:field="*{endDate}">
-        </label>
-        <button type="submit">Lekérdezés</button>
-    </form>
+    <section th:replace="~{fragments/layout :: menu}"></section>
 
-    <p class="error" th:if="${error}" th:text="${error}"></p>
+    <section id="main" class="wrapper style2">
+        <div class="container">
 
-    <table class="rates" th:if="${points}">
-        <thead>
-        <tr><th>Dátum</th><th>Egység</th><th>Árfolyam (Ft)</th></tr>
-        </thead>
-        <tbody>
-        <tr th:each="p : ${points}">
-            <td th:text="${p.datum}"></td>
-            <td th:text="${p.egyseg}"></td>
-            <td th:text="${#numbers.formatDecimal(p.ertek, 1, 'WHITESPACE', 2, 'COMMA')}"></td>
-        </tr>
-        </tbody>
-    </table>
+            <h2 th:text="${title}">Cím</h2>
 
-</main>
-<footer th:replace="~{fragments/layout :: footer}"></footer>
+            <form class="query-form" th:action="@{/soap}" th:object="${form}" method="post">
+                <label>Deviza
+                    <select th:field="*{currency}">
+                        <option th:each="c : ${currencies}" th:value="${c}" th:text="${c}"></option>
+                    </select>
+                </label>
+                <label>Kezdő dátum
+                    <input type="date" th:field="*{startDate}">
+                </label>
+                <label>Záró dátum
+                    <input type="date" th:field="*{endDate}">
+                </label>
+                <button type="submit">Lekérdezés</button>
+            </form>
+
+            <p class="error" th:if="${error}" th:text="${error}"></p>
+
+            <section th:if="${points}">
+
+                <div class="chart-box">
+                    <canvas id="rateChart"></canvas>
+                </div>
+
+                <table class="rates">
+                    <thead>
+                    <tr><th>Dátum</th><th>Egység</th><th>Árfolyam (Ft)</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${points}">
+                        <td th:text="${p.datum}"></td>
+                        <td th:text="${p.egyseg}"></td>
+                        <td th:text="${#numbers.formatDecimal(p.ertek, 1, 'WHITESPACE', 2, 'COMMA')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </section>
+
+        </div>
+    </section>
+
+    <section th:replace="~{fragments/layout :: footer}"></section>
+
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+
+<th:block th:if="${points}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:inline="javascript">
+        const labels = /*[[${labels}]]*/ [];
+        const values = /*[[${values}]]*/ [];
+        const currency = /*[[${form.currency}]]*/ 'EUR';
+
+        new Chart(document.getElementById('rateChart'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: currency + ' Árfolyam (Ft)',
+                    data: values,
+                    borderColor: '#1f2937',
+                    backgroundColor: 'rgba(31, 41, 55, 0.1)',
+                    pointRadius: 3,
+                    tension: 0.2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+</th:block>
+
 </body>
 </html>
