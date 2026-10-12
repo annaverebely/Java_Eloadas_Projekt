@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html lang="hu" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head(${title})}"></head>
-<body>
-<header th:replace="~{fragments/layout :: menu}"></header>
-<main class="container">
-    <h1 th:text="${title}">Cím</h1>
+<body class="no-sidebar is-preload">
+<div id="page-wrapper">
 
-    <form class="query-form" th:action="@{/hist_prices}" th:object="${form}" method="post">
-        <label>Instrumentum
-            <select th:field="*{instrument}">
-                <option th:each="i : ${instruments}" th:value="${i}" th:text="${i}"></option>
-            </select>
-        </label>
-        <label>Granularity
-            <select th:field="*{granularity}">
-                <option th:each="g : ${granularities}" th:value="${g}" th:text="${g}"></option>
-            </select>
-        </label>
-        <button type="submit">Lekérdezés</button>
-    </form>
+    <section th:replace="~{fragments/layout :: menu}"></section>
 
-    <p class="error" th:if="${error}" th:text="${error}"></p>
+    <section id="main" class="wrapper style2">
+        <div class="container">
 
-    <table class="rates" style="max-width:none" th:if="${candles}">
-        <thead>
-        <tr><th>Időpont (UTC)</th><th>Nyitó</th><th>Maximum</th><th>Minimum</th><th>Záró</th></tr>
-        </thead>
-        <tbody>
-        <tr th:each="c : ${candles}">
-            <td th:text="${#strings.replace(#strings.substring(c.time.toString(), 0, 19), 'T', ' ')}"></td>
-            <td th:text="${c.mid.o}"></td>
-            <td th:text="${c.mid.h}"></td>
-            <td th:text="${c.mid.l}"></td>
-            <td th:text="${c.mid.c}"></td>
-        </tr>
-        </tbody>
-    </table>
-</main>
-<footer th:replace="~{fragments/layout :: footer}"></footer>
+            <h2 th:text="${title}">Cím</h2>
+
+            <form class="query-form" th:action="@{/hist_prices}" th:object="${form}" method="post">
+                <label>Instrumentum
+                    <select th:field="*{instrument}">
+                        <option th:each="i : ${instruments}" th:value="${i}" th:text="${i}"></option>
+                    </select>
+                </label>
+                <label>Granularity
+                    <select th:field="*{granularity}">
+                        <option th:each="g : ${granularities}" th:value="${g}" th:text="${g}"></option>
+                    </select>
+                </label>
+                <button type="submit">Lekérdezés</button>
+            </form>
+
+            <p class="error" th:if="${error}" th:text="${error}"></p>
+
+            <table class="rates" style="max-width:none" th:if="${candles}">
+                <thead>
+                <tr><th>Időpont (UTC)</th><th>Nyitó</th><th>Maximum</th><th>Minimum</th><th>Záró</th></tr>
+                </thead>
+                <tbody>
+                <tr th:each="c : ${candles}">
+                    <td th:text="${#strings.replace(#strings.substring(c.time.toString(), 0, 19), 'T', ' ')}"></td>
+                    <td th:text="${c.mid.o}"></td>
+                    <td th:text="${c.mid.h}"></td>
+                    <td th:text="${c.mid.l}"></td>
+                    <td th:text="${c.mid.c}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+
+    <section th:replace="~{fragments/layout :: footer}"></section>
+
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
 </body>
 </html>
