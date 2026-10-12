@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${title})}"></head>
+<body class="no-sidebar is-preload">
+<div id="page-wrapper">
+
+    <section th:replace="~{fragments/layout :: menu}"></section>
+
+    <section id="main" class="wrapper style2">
+        <div class="container">
+
+            <h2 th:text="${title}">Cím</h2>
+            <p>Pozitív mennyiség: <strong>Long</strong> (vétel), negatív mennyiség: <strong>Short</strong> (eladás).
+                A pozíció piaci áron nyílik meg.</p>
+
+            <form class="query-form" th:action="@{/open_position}" th:object="${form}" method="post">
+                <label>Instrumentum
+                    <select th:field="*{instrument}">
+                        <option th:each="i : ${instruments}" th:value="${i}" th:text="${i}"></option>
+                    </select>
+                </label>
+                <label>Mennyiség (egység)
+                    <input type="number" step="1" th:field="*{units}" required>
+                </label>
+                <button type="submit">Pozíció nyitása</button>
+            </form>
+
+            <p class="error" th:if="${error}" th:text="${error}"></p>
+            <p th:if="${ok}" th:text="${ok}" style="color:#15803d;font-weight:bold"></p>
+
+        </div>
+    </section>
+
+    <section th:replace="~{fragments/layout :: footer}"></section>
+
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
