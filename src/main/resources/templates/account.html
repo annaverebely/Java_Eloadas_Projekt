@@ -13,7 +13,7 @@
 
             <p class="error" th:if="${error}" th:text="${error}"></p>
 
-            <table class="rates" th:if="${summary}">
+            <table class="default" style="width:auto" th:if="${summary}">
                 <tbody>
                 <tr><th>Számla azonosító</th>  <td th:text="${summary.id}"></td></tr>
                 <tr><th>Számla neve</th>       <td th:text="${summary.alias}"></td></tr>

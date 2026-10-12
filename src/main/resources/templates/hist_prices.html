@@ -27,7 +27,7 @@
 
             <p class="error" th:if="${error}" th:text="${error}"></p>
 
-            <table class="rates" style="max-width:none" th:if="${candles}">
+            <table class="default" th:if="${candles}">
                 <thead>
                 <tr><th>Időpont (UTC)</th><th>Nyitó</th><th>Maximum</th><th>Minimum</th><th>Záró</th></tr>
                 </thead>
