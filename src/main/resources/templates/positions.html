@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${title})}"></head>
+<body class="no-sidebar is-preload">
+<div id="page-wrapper">
+
+    <section th:replace="~{fragments/layout :: menu}"></section>
+
+    <section id="main" class="wrapper style2">
+        <div class="container">
+
+            <h2 th:text="${title}">Cím</h2>
+
+            <p class="error" th:if="${error}" th:text="${error}"></p>
+
+            <p th:if="${trades != null and trades.isEmpty()}">Jelenleg nincs nyitott pozíció.</p>
+
+            <table class="default" th:if="${trades != null and !trades.isEmpty()}">
+                <thead>
+                <tr><th>Trade ID</th><th>Instrumentum</th><th>Irány</th><th>Egység</th>
+                    <th>Nyitó ár</th><th>Nyitás ideje (UTC)</th><th>Nem realizált P/L</th></tr>
+                </thead>
+                <tbody>
+                <tr th:each="t : ${trades}">
+                    <td th:text="${t.id}"></td>
+                    <td th:text="${t.instrument}"></td>
+                    <td th:text="${t.currentUnits.doubleValue() > 0} ? 'Long' : 'Short'"></td>
+                    <td th:text="${t.currentUnits}"></td>
+                    <td th:text="${t.price}"></td>
+                    <td th:text="${#strings.replace(#strings.substring(t.openTime.toString(), 0, 19), 'T', ' ')}"></td>
+                    <td th:text="${t.unrealizedPL}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p th:if="${trades != null and !trades.isEmpty()}"
+               th:text="'Nyitott tradek száma: ' + ${trades.size()}"></p>
+
+        </div>
+    </section>
+
+    <section th:replace="~{fragments/layout :: footer}"></section>
+
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

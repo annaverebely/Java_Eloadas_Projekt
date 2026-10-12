@@ -18,9 +18,6 @@ public class PageController {
 		return "index";
 	}
 
-	@GetMapping("/positions")
-	public String positions(Model m) { return stub(m, "Forex – Nyitott pozíciók"); }
-
 	@GetMapping("/close_position")
 	public String close(Model m) { return stub(m, "Forex – Pozíció zárás"); }
 
