@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${title})}"></head>
+<body class="no-sidebar is-preload">
+<div id="page-wrapper">
+
+    <section th:replace="~{fragments/layout :: menu}"></section>
+
+    <section id="main" class="wrapper style2">
+        <div class="container">
+
+            <h2 th:text="${title}">Cím</h2>
+            <p>Válaszd ki a lezárandó tradet. A trade piaci áron, teljes egészében záródik.</p>
+
+            <p th:if="${trades != null and trades.isEmpty()}">Jelenleg nincs nyitott pozíció, nincs mit lezárni.</p>
+
+            <form class="query-form" th:action="@{/close_position}" th:object="${form}" method="post"
+                  th:if="${trades != null and !trades.isEmpty()}">
+                <label>Trade
+                    <select th:field="*{tradeId}">
+                        <option th:each="t : ${trades}" th:value="${t.id}"
+                                th:text="${t.id} + ' – ' + ${t.instrument} + ', ' + ${t.currentUnits} + ' egység ('
+                                         + (${t.currentUnits.doubleValue() > 0} ? 'Long' : 'Short') + ')'"></option>
+                    </select>
+                </label>
+                <button type="submit">Pozíció zárása</button>
+            </form>
+
+            <p class="error" th:if="${error}" th:text="${error}"></p>
+            <p th:if="${ok}" th:text="${ok}" style="color:#15803d;font-weight:bold"></p>
+
+        </div>
+    </section>
+
+    <section th:replace="~{fragments/layout :: footer}"></section>
+
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

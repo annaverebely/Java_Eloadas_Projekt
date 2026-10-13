@@ -18,9 +18,6 @@ public class PageController {
 		return "index";
 	}
 
-	@GetMapping("/close_position")
-	public String close(Model m) { return stub(m, "Forex – Pozíció zárás"); }
-
 	private String stub(Model model, String title) {
 		model.addAttribute("title", title);
 		return "stub";
