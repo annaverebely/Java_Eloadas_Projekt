@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${title})}"></head>
+<body class="no-sidebar is-preload">
+<div id="page-wrapper">
+
+    <section th:replace="~{fragments/layout :: menu}"></section>
+
+    <section id="main" class="wrapper style2">
+        <div class="container">
+
+            <h2 th:text="${title}">Cím</h2>
+            <p>Add meg egy elképzelt pozíció adatait, és a kalkulátor kiszámolja a nyereséget vagy veszteséget,
+                az árkülönbséget pipben és a százalékos árváltozást. (Az Oandához nem kapcsolódik.)</p>
+
+            <form class="query-form" th:action="@{/teszt}" th:object="${kalkForm}" method="post">
+                <label>Instrumentum
+                    <select th:field="*{instrumentum}">
+                        <option th:each="i : ${instrumentumok}" th:value="${i}" th:text="${i}"></option>
+                    </select>
+                </label>
+                <label>Irány
+                    <select th:field="*{irany}">
+                        <option value="long">Long (vétel)</option>
+                        <option value="short">Short (eladás)</option>
+                    </select>
+                </label>
+                <label>Egység
+                    <input type="number" step="1" th:field="*{egyseg}" required>
+                </label>
+                <label>Nyitó ár
+                    <input type="number" step="any" th:field="*{nyitoAr}" required>
+                </label>
+                <label>Záró ár
+                    <input type="number" step="any" th:field="*{zaroAr}" required>
+                </label>
+                <button type="submit">Számol</button>
+            </form>
+
+            <p class="error" th:if="${error}" th:text="${error}"></p>
+
+            <table class="default" style="width:auto" th:if="${eredmeny}">
+                <tbody>
+                <tr><th>Nyereség / veszteség</th>
+                    <td th:text="${eredmeny} + ' ' + ${deviza}"
+                        th:style="${nyereseges} ? 'color:#15803d;font-weight:bold' : 'color:#b91c1c;font-weight:bold'"></td></tr>
+                <tr><th>Árelmozdulás (záró − nyitó)</th>     <td th:text="${pip} + ' pip'"></td></tr>
+                <tr><th>Százalékos változás</th> <td th:text="${szazalek} + ' %'"></td></tr>
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+
+    <section th:replace="~{fragments/layout :: footer}"></section>
+
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
