@@ -41,6 +41,12 @@
 			<artifactId>jaxws-rt</artifactId>
 			<version>4.0.2</version>
 		</dependency>
+		<!-- Tesztek (Teszt menü): JUnit 5 + MockMvc  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>beadando</finalName>
