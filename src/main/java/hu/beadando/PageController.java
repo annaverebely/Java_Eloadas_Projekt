@@ -4,11 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-/**
- * Főoldal + ideiglenes (stub) oldalak a menühöz.
- * Ahogy egy menüpont elkészül, vegyük ki innen az útvonalát, és
- * csináljunk neki saját controllert + sablont (pl. SoapController).
- */
+
 @Controller
 public class PageController {
 
@@ -16,6 +12,12 @@ public class PageController {
 	public String index(Model model) {
 		model.addAttribute("title", "Főoldal");
 		return "index";
+	}
+
+	// React menü
+	@GetMapping("/react")
+	public String react(Model model) {
+		return stub(model, "React");
 	}
 
 	private String stub(Model model, String title) {
