@@ -1,8 +1,0 @@
-/* Alapstílus a fejlesztői nézethez (npm run dev); az alkalmazásban a téma stílusa érvényes */
-body {
-  margin: 0;
-  padding: 1.5em;
-  font-family: system-ui, sans-serif;
-  color: #333;
-  background: #fff;
-}

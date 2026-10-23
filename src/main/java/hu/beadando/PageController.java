@@ -14,14 +14,10 @@ public class PageController {
 		return "index";
 	}
 
-	// React menü
+	// React menü: a react.html-be töltődik be a lefordított React alkalmazás
 	@GetMapping("/react")
 	public String react(Model model) {
-		return stub(model, "React");
-	}
-
-	private String stub(Model model, String title) {
-		model.addAttribute("title", title);
-		return "stub";
+		model.addAttribute("title", "React");
+		return "react";
 	}
 }

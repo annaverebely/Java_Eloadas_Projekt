@@ -6,21 +6,19 @@
 
 	<section th:replace="~{fragments/layout :: menu}"></section>
 
-	<div id="main" class="wrapper style2">
-		<div class="title" th:text="${title}">Cím</div>
+	<section id="main" class="wrapper style2">
 		<div class="container">
-			<article class="box post">
-				<header class="style1">
-					<h2 th:text="${title}">Cím</h2>
-					<p>Ez az oldal még nincs elkészítve.</p>
-				</header>
-			</article>
+			<!-- A React alkalmazás (frontend mappa, npm run build) ebbe a div-be rajzol -->
+			<div id="root"></div>
 		</div>
-	</div>
+	</section>
 
 	<section th:replace="~{fragments/layout :: footer}"></section>
 
 </div>
 <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+<!-- a lefordított React fájlok a static/react mappából -->
+<link rel="stylesheet" th:href="@{/react/assets/app.css}">
+<script type="module" th:src="@{/react/assets/app.js}"></script>
 </body>
 </html>

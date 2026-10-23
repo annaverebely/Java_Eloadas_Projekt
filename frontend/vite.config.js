@@ -4,8 +4,23 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+
+  base: '/react/',
+  build: {
+
+    outDir: '../src/main/resources/static/react',
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+
+        entryFileNames: 'assets/app.js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/app[extname]',
+      },
+    },
+  },
   server: {
-    // fejlesztés közben (npm run dev) az /api kéréseket a Spring Boot kapja meg
+    
     proxy: {
       '/api': 'http://localhost:8080',
     },

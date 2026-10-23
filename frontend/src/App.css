@@ -32,6 +32,18 @@
   margin-left: 0.4em;
 }
 
+/* a téma nagy gombjai helyett kisebb gombok a táblázat soraiban (mobilon is egymás mellett) */
+.foglalkozasok .muveletek button {
+  display: inline-block;
+  width: auto;
+  min-width: 0;
+  height: auto;
+  line-height: 1.5;
+  padding: 0.5em 1em;
+  font-size: 0.7em;
+  letter-spacing: 0.1em;
+}
+
 /* űrlap: a mezők egymás mellett, keskeny képernyőn egymás alá törnek */
 .urlap {
   display: flex;
