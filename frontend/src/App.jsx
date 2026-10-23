@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import FoglalkozasUrlap from './FoglalkozasUrlap.jsx'
 import './App.css'
 
 function App() {
@@ -26,12 +27,19 @@ function App() {
   // számok ezres tagolással: 142912 -> "142 912"
   const szam = (n) => n.toLocaleString('hu-HU')
 
+  // Create: POST kérés; a szerver visszaküldi az új sort (a kiosztott fkod-dal), ezt a lista végére tesszük
+  const ujFelvetele = (adat) =>
+    axios.post('/api/foglalkozasok', adat)
+      .then((valasz) => setFoglalkozasok([...foglalkozasok, valasz.data]))
+
   if (betoltes) return <p>Betöltés…</p>
   if (hiba) return <p className="hiba">{hiba}</p>
 
   return (
     <div className="foglalkozasok">
       <h2>Foglalkoztatás megyénként</h2>
+      <h3>Új sor felvétele</h3>
+      <FoglalkozasUrlap megyek={megyek} gombFelirat="Hozzáad" onMentes={ujFelvetele} />
       <p>{foglalkozasok.length} sor</p>
       <table>
         <thead>
