@@ -19,6 +19,15 @@
   color: #b91c1c;
 }
 
+/* a módosítás alatt álló sor kiemelése */
+.foglalkozasok tr.kijelolt {
+  background: #fff7d6;
+}
+
+.foglalkozasok .muveletek {
+  white-space: nowrap;
+}
+
 /* űrlap: a mezők egymás mellett, keskeny képernyőn egymás alá törnek */
 .urlap {
   display: flex;

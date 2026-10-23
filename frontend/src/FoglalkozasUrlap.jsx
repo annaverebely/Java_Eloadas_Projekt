@@ -2,13 +2,21 @@ import { useState } from 'react'
 
 const URES = { megyekod: '', mezogazdasag: '', ipar: '', szolgaltatas: '' }
 
-// Űrlap egy foglalkozás-sor adataihoz. Felvételhez és (később) módosításhoz is ezt használjuk.
-// props: megyek (a lenyíló listához), gombFelirat, onMentes (a szülő menti el az adatot)
-function FoglalkozasUrlap({ megyek, gombFelirat, onMentes }) {
-  const [adat, setAdat] = useState(URES)
+// Űrlap felvételhez és módosításhoz
+
+function FoglalkozasUrlap({ megyek, gombFelirat, onMentes, kezdoAdat, onMegse }) {
+  // kezdőérték: módosításnál a kiválasztott sor adatai, felvételnél üres mezők
+  const [adat, setAdat] = useState(kezdoAdat
+    ? {
+        megyekod: kezdoAdat.megyekod,
+        mezogazdasag: kezdoAdat.mezogazdasag,
+        ipar: kezdoAdat.ipar,
+        szolgaltatas: kezdoAdat.szolgaltatas,
+      }
+    : URES)
   const [hiba, setHiba] = useState(null)
 
-  // bármelyik mező változásakor csak azt az egy mezőt írjuk át (a name attribútum alapján)
+
   const valtozas = (e) => setAdat({ ...adat, [e.target.name]: e.target.value })
 
   const kuldes = (e) => {
@@ -48,6 +56,7 @@ function FoglalkozasUrlap({ megyek, gombFelirat, onMentes }) {
         <input type="number" name="szolgaltatas" min="0" value={adat.szolgaltatas} onChange={valtozas} required />
       </label>
       <button type="submit">{gombFelirat}</button>
+      {onMegse && <button type="button" onClick={onMegse}>Mégse</button>}
       {hiba && <p className="hiba">{hiba}</p>}
     </form>
   )

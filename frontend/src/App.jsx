@@ -9,8 +9,9 @@ function App() {
   const [megyek, setMegyek] = useState([])
   const [betoltes, setBetoltes] = useState(true)
   const [hiba, setHiba] = useState(null)
+  const [szerkesztett, setSzerkesztett] = useState(null) // az éppen módosított sor (null: nincs ilyen)
 
-  // egyszer fut le, amikor az oldal megjelenik: lekéri az adatokat a Spring Boot REST címeiről
+  // egyszer fut le
   useEffect(() => {
     Promise.all([axios.get('/api/foglalkozasok'), axios.get('/api/megyek')])
       .then(([foglalkozasValasz, megyeValasz]) => {
@@ -21,16 +22,24 @@ function App() {
       .finally(() => setBetoltes(false))
   }, [])
 
-  // megyekód -> megyenév (pl. 2 -> "Bács-Kiskun")
+  // megyekód -> megyenév
   const megyeNev = (kod) => megyek.find((m) => m.megyekod === kod)?.megyenev ?? kod
 
-  // számok ezres tagolással: 142912 -> "142 912"
+  // szám tagolás
   const szam = (n) => n.toLocaleString('hu-HU')
 
-  // Create: POST kérés; a szerver visszaküldi az új sort (a kiosztott fkod-dal), ezt a lista végére tesszük
+  // Create: POST
   const ujFelvetele = (adat) =>
     axios.post('/api/foglalkozasok', adat)
       .then((valasz) => setFoglalkozasok([...foglalkozasok, valasz.data]))
+
+  // Update: PUT
+  const modositas = (adat) =>
+    axios.put(`/api/foglalkozasok/${szerkesztett.fkod}`, adat)
+      .then((valasz) => {
+        setFoglalkozasok(foglalkozasok.map((f) => (f.fkod === valasz.data.fkod ? valasz.data : f)))
+        setSzerkesztett(null)
+      })
 
   if (betoltes) return <p>Betöltés…</p>
   if (hiba) return <p className="hiba">{hiba}</p>
@@ -38,8 +47,25 @@ function App() {
   return (
     <div className="foglalkozasok">
       <h2>Foglalkoztatás megyénként</h2>
-      <h3>Új sor felvétele</h3>
-      <FoglalkozasUrlap megyek={megyek} gombFelirat="Hozzáad" onMentes={ujFelvetele} />
+      {szerkesztett ? (
+        <>
+          <h3>Sor módosítása ({szerkesztett.fkod})</h3>
+          {/* a key miatt másik sor kiválasztásakor új, újra kitöltött űrlap készül */}
+          <FoglalkozasUrlap
+            key={szerkesztett.fkod}
+            megyek={megyek}
+            gombFelirat="Mentés"
+            kezdoAdat={szerkesztett}
+            onMentes={modositas}
+            onMegse={() => setSzerkesztett(null)}
+          />
+        </>
+      ) : (
+        <>
+          <h3>Új sor felvétele</h3>
+          <FoglalkozasUrlap megyek={megyek} gombFelirat="Hozzáad" onMentes={ujFelvetele} />
+        </>
+      )}
       <p>{foglalkozasok.length} sor</p>
       <table>
         <thead>
@@ -50,17 +76,21 @@ function App() {
             <th className="szam">Ipar</th>
             <th className="szam">Szolgáltatás</th>
             <th className="szam">Összesen</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {foglalkozasok.map((f) => (
-            <tr key={f.fkod}>
+            <tr key={f.fkod} className={szerkesztett?.fkod === f.fkod ? 'kijelolt' : ''}>
               <td>{f.fkod}</td>
               <td>{megyeNev(f.megyekod)}</td>
               <td className="szam">{szam(f.mezogazdasag)}</td>
               <td className="szam">{szam(f.ipar)}</td>
               <td className="szam">{szam(f.szolgaltatas)}</td>
               <td className="szam">{szam(f.mezogazdasag + f.ipar + f.szolgaltatas)}</td>
+              <td className="muveletek">
+                <button type="button" onClick={() => setSzerkesztett(f)}>Módosít</button>
+              </td>
             </tr>
           ))}
         </tbody>
