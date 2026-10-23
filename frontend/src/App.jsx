@@ -10,6 +10,7 @@ function App() {
   const [betoltes, setBetoltes] = useState(true)
   const [hiba, setHiba] = useState(null)
   const [szerkesztett, setSzerkesztett] = useState(null) // az éppen módosított sor (null: nincs ilyen)
+  const [torlesHiba, setTorlesHiba] = useState(null)
 
   // egyszer fut le
   useEffect(() => {
@@ -41,6 +42,18 @@ function App() {
         setSzerkesztett(null)
       })
 
+  // Delete
+  const torles = (f) => {
+    if (!confirm(`Biztosan törlöd ezt a sort? ${megyeNev(f.megyekod)} (${f.fkod})`)) return
+    setTorlesHiba(null)
+    axios.delete(`/api/foglalkozasok/${f.fkod}`)
+      .then(() => {
+        setFoglalkozasok(foglalkozasok.filter((x) => x.fkod !== f.fkod))
+        if (szerkesztett?.fkod === f.fkod) setSzerkesztett(null)
+      })
+      .catch((err) => setTorlesHiba(err.response?.data?.message || 'Nem sikerült törölni.'))
+  }
+
   if (betoltes) return <p>Betöltés…</p>
   if (hiba) return <p className="hiba">{hiba}</p>
 
@@ -67,6 +80,7 @@ function App() {
         </>
       )}
       <p>{foglalkozasok.length} sor</p>
+      {torlesHiba && <p className="hiba">{torlesHiba}</p>}
       <table>
         <thead>
           <tr>
@@ -90,6 +104,7 @@ function App() {
               <td className="szam">{szam(f.mezogazdasag + f.ipar + f.szolgaltatas)}</td>
               <td className="muveletek">
                 <button type="button" onClick={() => setSzerkesztett(f)}>Módosít</button>
+                <button type="button" onClick={() => torles(f)}>Töröl</button>
               </td>
             </tr>
           ))}
