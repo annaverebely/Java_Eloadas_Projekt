@@ -28,11 +28,11 @@ public class ClosePositionController {
         return "close_position";
     }
 
-    // 2) az elküldött űrlap feldolgozása: a kiválasztott trade lezárása
+    // 2) az elküldött űrlap feldolgozása: a megadott tradeId-jű trade lezárása piaci áron
     @PostMapping("/close_position")
     public String close(@ModelAttribute("form") ZarasForm form, Model model) {
         if (form.getTradeId() == null || form.getTradeId().isBlank()) {
-            model.addAttribute("error", "Válassz ki egy lezárandó tradet.");
+            model.addAttribute("error", "Add meg a lezárandó trade azonosítóját.");
         } else {
             try {
                 TradeCloseRequest request = new TradeCloseRequest(
@@ -48,6 +48,7 @@ public class ClosePositionController {
                     model.addAttribute("ok", "A(z) " + form.getTradeId()
                             + " azonosítójú trade lezárva. Záró ár: " + fill.getPrice()
                             + ", realizált nyereség/veszteség: " + fill.getPl() + ".");
+                    form.setTradeId(null);   // a mező kiürítése a sikeres zárás után
                 }
             } catch (Exception e) {
                 model.addAttribute("error", "Az Oanda lekérdezés sikertelen: " + e);

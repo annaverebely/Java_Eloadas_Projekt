@@ -10,21 +10,33 @@
         <div class="container">
 
             <h2 th:text="${title}">Cím</h2>
-            <p>Válaszd ki a lezárandó tradet. A trade piaci áron, teljes egészében záródik.</p>
+            <p>Add meg a lezárandó trade azonosítóját (Trade ID). A trade piaci áron, teljes egészében záródik.</p>
 
             <p th:if="${trades != null and trades.isEmpty()}">Jelenleg nincs nyitott pozíció, nincs mit lezárni.</p>
 
             <form class="query-form" th:action="@{/close_position}" th:object="${form}" method="post"
                   th:if="${trades != null and !trades.isEmpty()}">
-                <label>Trade
-                    <select th:field="*{tradeId}">
-                        <option th:each="t : ${trades}" th:value="${t.id}"
-                                th:text="${t.id} + ' – ' + ${t.instrument} + ', ' + ${t.currentUnits} + ' egység ('
-                                         + (${t.currentUnits.doubleValue() > 0} ? 'Long' : 'Short') + ')'"></option>
-                    </select>
+                <label>Trade ID
+                    <input type="number" th:field="*{tradeId}" min="1" step="1" required placeholder="pl. 7">
                 </label>
                 <button type="submit">Pozíció zárása</button>
             </form>
+
+            <h3 th:if="${trades != null and !trades.isEmpty()}">Nyitott tradek</h3>
+            <table th:if="${trades != null and !trades.isEmpty()}">
+                <thead>
+                <tr><th>Trade ID</th><th>Instrumentum</th><th>Egység</th><th>Irány</th><th>Nyitó ár</th></tr>
+                </thead>
+                <tbody>
+                <tr th:each="t : ${trades}">
+                    <td th:text="${t.id}">7</td>
+                    <td th:text="${t.instrument}">EUR_USD</td>
+                    <td th:text="${t.currentUnits}">100</td>
+                    <td th:text="${t.currentUnits.doubleValue() > 0} ? 'Long' : 'Short'">Long</td>
+                    <td th:text="${t.price}">1.0850</td>
+                </tr>
+                </tbody>
+            </table>
 
             <p class="error" th:if="${error}" th:text="${error}"></p>
             <p th:if="${ok}" th:text="${ok}" style="color:#15803d;font-weight:bold"></p>
