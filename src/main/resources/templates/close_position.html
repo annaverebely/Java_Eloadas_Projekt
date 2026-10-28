@@ -23,17 +23,20 @@
             </form>
 
             <h3 th:if="${trades != null and !trades.isEmpty()}">Nyitott tradek</h3>
-            <table th:if="${trades != null and !trades.isEmpty()}">
+            <table class="default" th:if="${trades != null and !trades.isEmpty()}">
                 <thead>
-                <tr><th>Trade ID</th><th>Instrumentum</th><th>Egység</th><th>Irány</th><th>Nyitó ár</th></tr>
+                <tr><th>Trade ID</th><th>Instrumentum</th><th>Irány</th><th>Egység</th>
+                    <th>Nyitó ár</th><th>Nyitás ideje (UTC)</th><th>Nem realizált P/L</th></tr>
                 </thead>
                 <tbody>
                 <tr th:each="t : ${trades}">
-                    <td th:text="${t.id}">7</td>
-                    <td th:text="${t.instrument}">EUR_USD</td>
-                    <td th:text="${t.currentUnits}">100</td>
-                    <td th:text="${t.currentUnits.doubleValue() > 0} ? 'Long' : 'Short'">Long</td>
-                    <td th:text="${t.price}">1.0850</td>
+                    <td th:text="${t.id}"></td>
+                    <td th:text="${t.instrument}"></td>
+                    <td th:text="${t.currentUnits.doubleValue() > 0} ? 'Long' : 'Short'"></td>
+                    <td th:text="${t.currentUnits}"></td>
+                    <td th:text="${t.price}"></td>
+                    <td th:text="${#strings.replace(#strings.substring(t.openTime.toString(), 0, 19), 'T', ' ')}"></td>
+                    <td th:text="${t.unrealizedPL}"></td>
                 </tr>
                 </tbody>
             </table>
