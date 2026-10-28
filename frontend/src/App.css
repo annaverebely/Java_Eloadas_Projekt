@@ -1,0 +1,65 @@
+.foglalkozasok table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.foglalkozasok th,
+.foglalkozasok td {
+  padding: 0.4em 0.8em;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+/* a számok jobbra igazítva, hogy a helyiértékek egymás alá kerüljenek */
+.foglalkozasok .szam {
+  text-align: right;
+}
+
+.hiba {
+  color: #b91c1c;
+}
+
+/* a módosítás alatt álló sor kiemelése */
+.foglalkozasok tr.kijelolt {
+  background: #fff7d6;
+}
+
+.foglalkozasok .muveletek {
+  white-space: nowrap;
+}
+
+.foglalkozasok .muveletek button + button {
+  margin-left: 0.4em;
+}
+
+/* a téma nagy gombjai helyett kisebb gombok a táblázat soraiban (mobilon is egymás mellett) */
+.foglalkozasok .muveletek button {
+  display: inline-block;
+  width: auto;
+  min-width: 0;
+  height: auto;
+  line-height: 1.5;
+  padding: 0.5em 1em;
+  font-size: 0.7em;
+  letter-spacing: 0.1em;
+}
+
+/* űrlap: a mezők egymás mellett, keskeny képernyőn egymás alá törnek */
+.urlap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8em;
+  align-items: flex-end;
+  margin-bottom: 1.5em;
+}
+
+.urlap label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9em;
+}
+
+.urlap .hiba {
+  width: 100%;
+  margin: 0;
+}

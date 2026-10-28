@@ -41,6 +41,21 @@ body:not(.homepage) #main{
     background-color: #2f6bbd;
 }
 
+/* Űrlap-gombok: világos felirat a sötét háttéren (a téma nem ad meg betűszínt);
+   rámutatáskor (világos háttér) a böngésző alap, sötét betűszíne marad */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    color: #fff;
+}
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    color: buttontext;
+}
+
 /* Lábléc alakítás */
 #footer .authors {
     text-align: center;
